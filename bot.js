@@ -24,6 +24,10 @@ function palindrometer(x,y){
         if(x.length<minLength){
             return false
         }
+
+        if(x.indexOf()){
+            return false
+        }
         var counter = 0;
         //console.log("y = " + y);
         var z = x.length;
@@ -43,6 +47,19 @@ function palindrometer(x,y){
         })
     }
     //////////////////////////////////////////////////////////////////////////
+    function filterCommon(x){
+        var y = "segment: " + x;
+        var commons = [ //includes some common palindromes to avoid repeats, adding DB later...
+            "lollollol", ".........","nevereven","foreverof",
+            "hahhahhah", "hahahahah"
+        ];
+        for(i=0;i<commons.length;i++){
+            if(y.indexOf(commons[i]) > 0){
+                return true;
+            }
+        }
+    }
+    //////////////////////////////////////////////////////////////////////////
     var combinations = [];
     var noPunc = x.replace(/[.,\/#!?$%'\^&\*;:{}=\-_`~()]/g,"");
     var singleSpaces = noPunc.replace(/\s{2,}/g," "); //multiple spaces to one space
@@ -55,6 +72,11 @@ function palindrometer(x,y){
             if(segment.length >= 2){
                 //console.log(segment);
                 segment = segment.join("");
+                var common = filterCommon(segment);
+                if(common){
+                    console.log("common palindrome: " + segment + " filtered out.")
+                    return;
+                }
                 combinations.push(segment);
                 counter++;
             }
@@ -68,17 +90,25 @@ function palindrometer(x,y){
 }
 ////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
 
-//messing around:
-
 function filterJunk(x){
     var y = "text: " + x.toLowerCase();
-    var junk = [
+    var junk = [ //includes some common palindromes to avoid repeats, adding DB later...
         "dammit", "shit", "fuck", "pussy",
         " tits", "asshole", "fag", "faggot",
         " sex", "cum", " cunt", " jizz",
         " clit", " dick", "cocksucker",
         " porn", "nigger", "nigga", "retard",
-        "bitch", "whore", "slut"
+        "bitch", "whore", "slut", "never even",
+        "rape", "murder", "kill",
+        "dead", "assault", "gunned", "terror",
+        "attack", "bomb", "explode", "explosion",
+        "sad", "condolences", "died", "death",
+        "rest in peace", "fetish", "isis",
+        "jihad", "arson", "trump", "racist",
+        "racial", "xxx", "syria", "aleppo",
+        "iran", "iraq", "afghanistan",
+        "injure", "wound", "hurt", "depress",
+        "sjw", "cuck", "hatred", "vagina"
     ];
     for(i=0;i<junk.length;i++){
         //console.log(junk[i]);
@@ -87,4 +117,5 @@ function filterJunk(x){
             return true;
         }
     }
+
 }
