@@ -1,59 +1,15 @@
 var twit = require('twit');
 var config = require('./config.js');
 var Twitter = new twit(config);
-
-var retweet = function(){
-    var params = {
-        q: 'trump',
-        result_type: 'recent',
-        lang: 'en'
-    };
-
-    Twitter.get('search/tweets', params, function(err, data){
-        if(!err){
-            var retweetId = data.statuses[0].id_str;
-            Twitter.post('statuses/retweet/:id', {
-                id: retweetId
-            }, function(err,response){
-                if(response){
-                    console.log("Retweeted!!!");
-                }
-                if(err){
-                    console.log("There was an error when Retweeting, duplication?")
-                }
-            });
-        }else{
-            console.log("Something when wrong when Searching...")
-        }
-    })
-};
-//retweet();
-//setInterval(retweet, 5000)
-
-/////////////////////////////
-function followerIds() { //lists numeric ids of followers of the given handle
-    Twitter.get('followers/ids', {screen_name: '_JakeRatliff'}, function (err, data, response) {
-        console.log(data)
-    })
-}
-/////////////////////////////
-function findTweetsAbout(x){
-    Twitter.get('search/tweets',
-        { q: x + ' since:2016-07-01', count: 100 },
-        function(err, data, response) {
-        console.log(data)
-    })
-}
-
-//findTweetsAbout("Jake Ratliff");
-////////////////////////////
-
-var sanfran = [ '-122.75', '36.8', '-121.75', '37.8'];
-
 var stream = Twitter.stream('statuses/sample',{ language: 'en' });
 
 stream.on('tweet', function (tweet) {
-    palindrometer(tweet.text,tweet.id_str);
+    var filtered = filterJunk(tweet.text);
+    if(filtered){
+        console.log("filtered tweet")
+    }else{
+        palindrometer(tweet.text,tweet.id_str);
+    }
 });
 
 //todo filter explicit tweets, add db so no repeats.
@@ -111,3 +67,24 @@ function palindrometer(x,y){
     sortedCombos.forEach(fS);
 }
 ////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
+
+//messing around:
+
+function filterJunk(x){
+    var y = "text: " + x.toLowerCase();
+    var junk = [
+        "dammit", "shit", "fuck", "pussy",
+        " tits", "asshole", "fag", "faggot",
+        " sex", "cum", " cunt", " jizz",
+        " clit", " dick", "cocksucker",
+        " porn", "nigger", "nigga", "retard",
+        "bitch", "whore", "slut"
+    ];
+    for(i=0;i<junk.length;i++){
+        //console.log(junk[i]);
+        if(y.indexOf(junk[i]) > 0){
+            //console.log("found junk in text: " + junk[i]);
+            return true;
+        }
+    }
+}
