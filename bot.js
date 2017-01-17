@@ -33,7 +33,7 @@ Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
 
 var reply = function(){
     var params = {
-        q: 'palindrometer', //palindrome%20OR%20palindrometer
+        q: 'palindrometer%20-from%3Apalindrometer', //palindrome%20OR%20palindrometer
         result_type: 'recent',
         lang: 'en'
     }
@@ -75,14 +75,12 @@ function palindrometer(x,y,z){
         if(x.length<minLength){
             return false
         }
-        var counter = 0;
         var z = x.length;
         for(i=0;i<=x.length/2;i++){
             z--;
             if(x[i] == x[z]){
-                counter++;
             }else{
-                return false
+                return "No symmetry here."
             }
         }
         console.log("Found a palindrome! It is: " + element + ". It is " + element.length + " characters long. Nice!");
