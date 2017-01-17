@@ -48,8 +48,10 @@ var reply = function(){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').find({"tweetId":tweet.id_str},function(err,result){
                         if(err) throw err;
-                        if(result.tweetId && result.tweetId == tweet.id_str){
-                            console.log("keeping going...");
+                        if(result.tweetId){
+                            //console.log("keeping going...");
+                            console.log("result.tweetId = " + result.tweetId);
+                            console.log("tweet.id_str = " + tweet.id_str);
                         }else{
                             console.log("no result found, this tweet is new to me");
                             palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
@@ -111,7 +113,7 @@ function palindrometer(x,y,z){
             console.log(data)
         });
         MongoClient.connect(URI, function(err,db){
-            db.collection('usedTweets').insertOne({tweetId:tweetId})
+            db.collection('usedTweets').insertOne({"tweetId":tweetId})
         });
     }
     //////////////////////////////////////////////////////////////////////////
