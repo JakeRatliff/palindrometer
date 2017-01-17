@@ -46,12 +46,16 @@ var reply = function(){
             //console.log(tweet);
             if(tweet){
                 MongoClient.connect(URI, function(err,db){
-                    var oldTweet = db.collection('usedTweets').findOne({tweetId:tweet.id_str});
-                    if(oldTweet){
-                        return "Old tweet, keeping on keeping on..."
-                    }else{
-                        palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
-                    }
+                    db.collection('usedTweets').findOne({tweetId:tweet.id_str},function(err,result){
+                        if(err) throw err;
+                        if(result){
+                            console.log("result found, keeping going")
+                        }else{
+                            console.log("no result found, this tweet is new to me");
+                            palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
+
+                        }
+                    });
                 })
             }
         }else{
