@@ -68,24 +68,18 @@ function palindrometer(x,y,z){
         return false
     }
     /////////////////////////////////////////////////////////////////////////
-    function fS(element){ //fS, or 'find symmetry'
-        var minLength = 9; //minimum character length of palindrome,
+    function fS(element){ //or 'find symmetry'
+        var minLength = 7; //minimum character length of palindrome,
         // excluding spaces and punctuation, which will have been scrubbed already.
         var x = element;
         if(x.length<minLength){
             return false
         }
-        if(x.indexOf()){
-            return false
-        }
         var counter = 0;
-        //console.log("y = " + y);
         var z = x.length;
-        //console.log("z  = " + z);
         for(i=0;i<=x.length/2;i++){
             z--;
             if(x[i] == x[z]){
-                //console.log("x[i] | x[z] = " + x[i] + " | " + x[z]);
                 counter++;
             }else{
                 return false
@@ -176,3 +170,52 @@ function filterJunk(x){
     }
 
 }
+
+////////////////\\\\\\\\\\\\\\\\//////////////
+/*
+function palindrometer(x){
+
+    /////////////////////////////////////////////////////////////////////////
+    function fS(element){ //or 'find symmetry'
+        var minLength = 7; //minimum character length of palindrome,
+        // excluding spaces and punctuation, which will have been scrubbed already.
+        var x = element;
+        if(x.length<minLength){
+            return false
+        }
+        var z = x.length;
+        for(i=0;i<=x.length/2;i++){
+            z--;
+            if(x[i] == x[z]){
+            }else{
+                return false
+            }
+        }
+        console.log("Found a palindrome! It is: " + element + ". It is " + element.length + " characters long. Nice!");
+
+    }
+    //////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////
+    var combinations = [];
+    var noPunc = x.replace(/[.,\/#!?$%'\^&\*;:{}=\-_`~()]/g,"");
+    var singleSpaces = noPunc.replace(/\s{2,}/g," "); //multiple spaces to one space
+    var scrubbed = singleSpaces.toLowerCase();
+    var words = scrubbed.split(" ");
+    for(i=0;i<words.length;i++){
+        for(j=i;j<=words.length;j++){
+            var segment = words.slice(i,j);
+            if(segment.length >= 2){
+                //console.log(segment);
+                segment = segment.join("");
+                combinations.push(segment);
+            }
+        }
+    }
+    var sortedCombos = combinations.sort(function(a, b){
+        return b.length - a.length;
+    });
+    //console.log(sortedCombos);
+    sortedCombos.forEach(fS);
+}
+    */
