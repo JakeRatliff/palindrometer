@@ -37,8 +37,8 @@ var retweet = function(){
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
-            console.log(tweet.text);
-            palindrometer(tweet.text,tweet.id_str)
+            console.log(data.statuses[0].text);
+            //palindrometer(tweet.text,tweet.id_str)
         }else{
             console.log("Something when wrong when Searching...")
         }
