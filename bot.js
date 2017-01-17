@@ -13,15 +13,15 @@ stream.on('tweet', function (tweet) {
     }
 });
 */
-Twitter.stream('statuses/filter', { track: 'palindrome'}, function (stream) {
+Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
     stream.on('tweet', function (tweet) {
-        console.log(tweet);
+        console.log(tweet);/*
         var filtered = filterJunk(tweet.text);
         if(filtered){
             console.log("filtered tweet")
         }else{
             palindrometer(tweet.text,tweet.id_str);
-        }
+        }*/
     });
 });
 
