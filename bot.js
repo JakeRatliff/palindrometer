@@ -48,8 +48,8 @@ var reply = function(){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').find({tweetId:tweet.id_str},function(err,result){
                         if(err) throw err;
-                        if(result){
-                            console.log("result found: " +result.tweetId+ "\n should match: " + tweet.id_str);
+                        if(result!=undefined){
+                            console.log("result found: " +result.tweetId+ "\nshould match: " + tweet.id_str);
                         }else{
                             console.log("no result found, this tweet is new to me");
                             palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
