@@ -30,7 +30,7 @@ Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
 
 var retweet = function(){
     var params = {
-        q: 'palindrome', 'palindrometer'
+        q: 'palindrome', 'palindrometer',
         result_type: 'recent',
         lang: 'en'
     }
