@@ -1,6 +1,7 @@
 var twit = require('twit');
 var config = require('./config.js');
 var Twitter = new twit(config);
+/*
 var stream = Twitter.stream('statuses/filter',{ track: 'palindrome','palindrometer'});
 
 stream.on('tweet', function (tweet) {
@@ -10,6 +11,18 @@ stream.on('tweet', function (tweet) {
     }else{
         palindrometer(tweet.text,tweet.id_str);
     }
+});
+*/
+Twitter.stream('statuses/filter', { track: 'palindrome','palindrometer' }, function (stream) {
+    stream.on('tweet', function (tweet) {
+        console.log(tweet);
+        var filtered = filterJunk(tweet.text);
+        if(filtered){
+            console.log("filtered tweet")
+        }else{
+            palindrometer(tweet.text,tweet.id_str);
+        }
+    });
 });
 
 //todo filter explicit tweets, add db so no repeats.
