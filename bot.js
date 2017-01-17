@@ -41,10 +41,11 @@ var retweet = function(){
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
             var tweet = data.statuses[0];
-            console.log(data.statuses[0].text);
+            console.log(tweet.author);
+            console.log(tweet.text);
             //palindrometer(tweet.text,tweet.id_str)
         }else{
-            console.log("Something when wrong when Searching...")
+            console.log("Error: " + err)
         }
     })
 }
