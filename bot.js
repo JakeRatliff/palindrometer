@@ -1,6 +1,7 @@
 var twit = require('twit');
 var config = require('./config.js');
 var Twitter = new twit(config);
+var MongoClient = require('mongodb').MongoClient;
 var URI = process.env.MONGODB_URI;
 console.log(URI);
 
@@ -99,7 +100,10 @@ function palindrometer(x,y,z){
         ]
         Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ element.length + ' characters long.' }, function (err, data, response) {
             console.log(data)
-        })
+        });
+        MongoClient.connect(URI, function(err,db){
+            db.collection('usedTweets').insertOne({tweetId:tweetId})
+        });
     }
     //////////////////////////////////////////////////////////////////////////
 
