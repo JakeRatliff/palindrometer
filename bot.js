@@ -45,9 +45,15 @@ var reply = function(){
             //console.log("@username = " + tweet.user.screen_name);
             //console.log(tweet);
             if(tweet){
-                palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
+                MongoClient.connect(URI, function(err,db){
+                    var oldTweet = db.collection('usedTweets').findOne({tweetId:tweet.id_str});
+                    if(oldTweet){
+                        return "Old tweet, keeping on keeping on..."
+                    }else{
+                        palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
+                    }
+                })
             }
-
         }else{
             console.log("Error: " + err)
         }
@@ -57,7 +63,7 @@ var reply = function(){
 //retweet();
 setInterval(reply,15000);
 
-//todo filter explicit tweets, add db so no repeats.
+//todo filter explicit tweets
 
 function palindrometer(x,y,z){
     var tweetId = y;
