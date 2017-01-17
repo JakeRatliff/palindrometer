@@ -30,13 +30,14 @@ Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
 
 var retweet = function(){
     var params = {
-        q: 'palindrome', 'palindrometer',
+        q: 'palindrome%20OR%20palindrometer',
         result_type: 'recent',
         lang: 'en'
     }
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
+            console.log(tweet.text);
             palindrometer(tweet.text,tweet.id_str)
         }else{
             console.log("Something when wrong when Searching...")
@@ -44,7 +45,8 @@ var retweet = function(){
     })
 }
 
-retweet();
+//retweet();
+setInterval(retweet,5000);
 
 
 
