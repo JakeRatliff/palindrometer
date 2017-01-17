@@ -13,7 +13,7 @@ stream.on('tweet', function (tweet) {
     }
 });
 */
-Twitter.stream('statuses/filter', { track: 'palindrome','palindrometer' }, function (stream) {
+Twitter.stream('statuses/filter', { track: 'palindrome'}, function (stream) {
     stream.on('tweet', function (tweet) {
         console.log(tweet);
         var filtered = filterJunk(tweet.text);
