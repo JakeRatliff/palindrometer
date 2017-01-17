@@ -49,7 +49,7 @@ var reply = function(){
                     db.collection('usedTweets').findOne({tweetId:tweet.id_str},function(err,result){
                         if(err) throw err;
                         if(result){
-                            console.log("result found, keeping going")
+                            console.log("result found: " +result+ "\n\n       keeping going...")
                         }else{
                             console.log("no result found, this tweet is new to me");
                             palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
