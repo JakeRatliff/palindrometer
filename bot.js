@@ -31,9 +31,9 @@ Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
 
 
 
-var retweet = function(){
+var reply = function(){
     var params = {
-        q: 'palindrome%20OR%20palindrometer',
+        q: 'palindrometer', //palindrome%20OR%20palindrometer
         result_type: 'recent',
         lang: 'en'
     }
@@ -53,7 +53,7 @@ var retweet = function(){
 }
 
 //retweet();
-setInterval(retweet,5000);
+setInterval(reply,15000);
 
 
 
@@ -116,21 +116,17 @@ function palindrometer(x,y,z){
     var singleSpaces = noPunc.replace(/\s{2,}/g," "); //multiple spaces to one space
     var scrubbed = singleSpaces.toLowerCase();
     var words = scrubbed.split(" ");
-    var counter = 0;
     for(i=0;i<words.length;i++){
         for(j=i;j<=words.length;j++){
             var segment = words.slice(i,j);
-            if(segment.length >= 2){
-                //console.log(segment);
-                segment = segment.join("");
-                var common = filterCommon(segment);
-                if(common){
-                    console.log("common palindrome: " + segment + " filtered out.")
-                    return;
-                }
-                combinations.push(segment);
-                counter++;
+            //console.log(segment);
+            segment = segment.join("");
+            var common = filterCommon(segment);
+            if(common){
+                console.log("common palindrome: " + segment + " filtered out.")
+                return;
             }
+            combinations.push(segment);
         }
     }
     var sortedCombos = combinations.sort(function(a, b){
@@ -205,11 +201,11 @@ function palindrometer(x){
     for(i=0;i<words.length;i++){
         for(j=i;j<=words.length;j++){
             var segment = words.slice(i,j);
-            if(segment.length >= 2){
-                //console.log(segment);
-                segment = segment.join("");
-                combinations.push(segment);
-            }
+
+            //console.log(segment);
+            segment = segment.join("");
+            combinations.push(segment);
+
         }
     }
     var sortedCombos = combinations.sort(function(a, b){
