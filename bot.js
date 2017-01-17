@@ -45,8 +45,9 @@ var reply = function(){
             //console.log("@username = " + tweet.user.screen_name);
             //console.log(tweet);
             if(tweet){
+
                 MongoClient.connect(URI, function(err,db){
-                    db.collection('usedTweets').findOne({tweetId:tweet.id_str},function(err,result){
+                    db.collection('usedTweets').find({tweetId:tweet.id_str},function(err,result){
                         if(err) throw err;
                         if(result){
                             console.log("result found: " +result.tweetId+ "\n\n       keeping going...")
@@ -101,12 +102,11 @@ function palindrometer(x,y,z){
             'Good work, your palindrome is',
             'Sweet palindrome ya got there. It is',
             'Boo, noob! Just kidding, you made a great palindrome. It is',
-            'Ya got yerself a palindrome, there pardner. By my reckoning, it is',
+            'Ya got yerself a palindrome, there, pardner. By my reckoning, it is',
             'Fantastic palindrome - it is',
             'Ooh nice one. That palindrome is',
             'Pretty cool palindrome, looks to be',
             'Not too shabby. Your palindrome is'
-
         ]
         Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ element.length + ' characters long.' }, function (err, data, response) {
             console.log(data)
