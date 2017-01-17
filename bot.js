@@ -40,12 +40,17 @@ var reply = function(){
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
+            var usedTweets = ['seed']
             var tweet = data.statuses[0];
             //console.log("@username = " + tweet.user.screen_name);
             console.log("tweet text = " + tweet.text);
             //console.log(tweet);
-            if(tweet.id_str)
-            palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name)
+            if(usedTweets.indexOf(tweet.id_str)>=0){
+                console.log("skipping repeat tweet...")
+            }else{
+                palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name)
+                usedTweets.push(tweet.id_str);
+            }
         }else{
             console.log("Error: " + err)
         }
@@ -62,11 +67,6 @@ setInterval(reply,15000);
 function palindrometer(x,y,z){
     var tweetId = y;
     var userName = z;
-    var alreadyUsedTweets = [];
-    if(alreadyUsedTweets.indexOf(y) >= 0){
-        console.log("repeat tweet");
-        return false
-    }
     /////////////////////////////////////////////////////////////////////////
     function fS(element){ //or 'find symmetry'
         var minLength = 7; //minimum character length of palindrome,
@@ -94,22 +94,9 @@ function palindrometer(x,y,z){
         Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+' Nice palindrome! It is ' + element.length + ' characters long.' }, function (err, data, response) {
             console.log(data)
         })
-        alreadyUsedTweets.push(tweetId);
-        console.log("already used tweet ids: " + alreadyUsedTweets);
     }
     //////////////////////////////////////////////////////////////////////////
-    function filterCommon(x){
-        var y = "segment: " + x;
-        var commons = [ //includes some common palindromes to avoid repeats, adding DB later...
-            "lollollol", ".........","nevereven","foreverof",
-            "hahhahhah", "hahahahah"
-        ];
-        for(i=0;i<commons.length;i++){
-            if(y.indexOf(commons[i]) > 0){
-                return true;
-            }
-        }
-    }
+
     //////////////////////////////////////////////////////////////////////////
     var combinations = [];
     var noPunc = x.replace(/[.,\/#!?$%'\^&\*;:{}=\-_`~()]/g,"");
@@ -121,11 +108,6 @@ function palindrometer(x,y,z){
             var segment = words.slice(i,j);
             //console.log(segment);
             segment = segment.join("");
-            var common = filterCommon(segment);
-            if(common){
-                console.log("common palindrome: " + segment + " filtered out.")
-                return;
-            }
             combinations.push(segment);
         }
     }
@@ -137,35 +119,7 @@ function palindrometer(x,y,z){
 }
 ////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
 
-function filterJunk(x){
-    var y = "text: " + x.toLowerCase();
-    var junk = [ //includes some common palindromes to avoid repeats, adding DB later...
-        "dammit", "shit", "fuck", "pussy",
-        " tits", "asshole", "fag", "faggot",
-        " sex", "cum", " cunt", " jizz",
-        " clit", " dick", "cocksucker",
-        " porn", "nigger", "nigga", "retard",
-        "bitch", "whore", "slut",
-        "rape", "murder", "kill",
-        "dead", "assault", "gunned", "terror",
-        "attack", "bomb", "explode", "explosion",
-        "sad", "condolences", "died", "death",
-        "rest in peace", "fetish", "isis",
-        "jihad", "arson", "trump", "racist",
-        "racial", "xxx", "syria", "aleppo",
-        "iran", "iraq", "afghanistan",
-        "injure", "wound", "hurt", "depress",
-        "sjw", "cuck", "hatred", "vagina"
-    ];
-    for(i=0;i<junk.length;i++){
-        //console.log(junk[i]);
-        if(y.indexOf(junk[i]) > 0){
-            //console.log("found junk in text: " + junk[i]);
-            return true;
-        }
-    }
 
-}
 
 ////////////////\\\\\\\\\\\\\\\\//////////////
 /*
