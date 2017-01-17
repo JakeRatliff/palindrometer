@@ -33,7 +33,7 @@ Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
 
 var reply = function(){
     var params = {
-        q: 'palindrometer%20-from%3Apalindrometer', //palindrome%20OR%20palindrometer
+        q: '@palindrometer%20-from%3Apalindrometer', //palindrome%20OR%20palindrometer
         result_type: 'recent',
         lang: 'en'
     }
