@@ -41,8 +41,9 @@ var retweet = function(){
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
             var tweet = data.statuses[0];
+            console.log("@username = " + tweet.user.screen_name);
+            console.log("tweet text = " + tweet.text);
             console.log(tweet);
-            console.log(tweet.text);
             //palindrometer(tweet.text,tweet.id_str)
         }else{
             console.log("Error: " + err)
