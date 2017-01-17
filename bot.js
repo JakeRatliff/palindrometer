@@ -12,18 +12,41 @@ stream.on('tweet', function (tweet) {
         palindrometer(tweet.text,tweet.id_str);
     }
 });
-*/
+//////////////// or this:
 Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
     stream.on('tweet', function (tweet) {
-        console.log(tweet);/*
+        console.log(tweet);
         var filtered = filterJunk(tweet.text);
         if(filtered){
             console.log("filtered tweet")
         }else{
             palindrometer(tweet.text,tweet.id_str);
-        }*/
+        }
     });
 });
+*/
+
+
+
+var retweet = function(){
+    var params = {
+        q: 'palindrome', 'palindrometer'
+        result_type: 'recent',
+        lang: 'en'
+    }
+
+    Twitter.get('search/tweets', params, function(err, data){
+        if(!err){
+            palindrometer(tweet.text,tweet.id_str)
+        }else{
+            console.log("Something when wrong when Searching...")
+        }
+    })
+}
+
+retweet();
+
+
 
 //todo filter explicit tweets, add db so no repeats.
 
