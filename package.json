@@ -9,6 +9,7 @@
   "author": "Jake Ratliff",
   "license": "ISC",
   "dependencies": {
+    "mongodb": "^2.2.21",
     "twit": "^2.2.5"
   }
 }
