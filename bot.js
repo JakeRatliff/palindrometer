@@ -1,7 +1,7 @@
 var twit = require('twit');
 var config = require('./config.js');
 var Twitter = new twit(config);
-var stream = Twitter.stream('statuses/sample',{ language: 'en' });
+var stream = Twitter.stream('statuses/filter',{ track: 'palindrome','palindrometer'; language: 'en' });
 
 stream.on('tweet', function (tweet) {
     var filtered = filterJunk(tweet.text);
@@ -98,7 +98,7 @@ function filterJunk(x){
         " sex", "cum", " cunt", " jizz",
         " clit", " dick", "cocksucker",
         " porn", "nigger", "nigga", "retard",
-        "bitch", "whore", "slut", "never even",
+        "bitch", "whore", "slut",
         "rape", "murder", "kill",
         "dead", "assault", "gunned", "terror",
         "attack", "bomb", "explode", "explosion",
