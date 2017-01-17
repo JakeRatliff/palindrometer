@@ -1,6 +1,9 @@
 var twit = require('twit');
 var config = require('./config.js');
 var Twitter = new twit(config);
+var URI = process.env.MONGODB_URI;
+console.log(URI);
+
 /*
 var stream = Twitter.stream('statuses/filter',{ track: 'palindrome','palindrometer'});
 
@@ -37,6 +40,7 @@ var retweet = function(){
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
+            var tweet = data.statuses[0];
             console.log(data.statuses[0].text);
             //palindrometer(tweet.text,tweet.id_str)
         }else{
@@ -62,7 +66,6 @@ function palindrometer(x,y){
         if(x.length<minLength){
             return false
         }
-
         if(x.indexOf()){
             return false
         }
