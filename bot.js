@@ -1,7 +1,7 @@
 var twit = require('twit');
 var config = require('./config.js');
 var Twitter = new twit(config);
-var stream = Twitter.stream('statuses/filter',{ track: 'palindrome','palindrometer'; language: 'en' });
+var stream = Twitter.stream('statuses/filter',{ track: 'palindrome','palindrometer'});
 
 stream.on('tweet', function (tweet) {
     var filtered = filterJunk(tweet.text);
