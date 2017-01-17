@@ -40,16 +40,11 @@ var reply = function(){
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
-            var usedTweets = ['seed']
             var tweet = data.statuses[0];
             //console.log("@username = " + tweet.user.screen_name);
-            console.log("tweet text = " + tweet.text);
             //console.log(tweet);
-            if(usedTweets.indexOf(tweet.id_str)>=0){
-                console.log("skipping repeat tweet...")
-            }else{
-                palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name)
-                usedTweets.push(tweet.id_str);
+            if(tweet){
+                palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
             }
         }else{
             console.log("Error: " + err)
@@ -59,8 +54,6 @@ var reply = function(){
 
 //retweet();
 setInterval(reply,15000);
-
-
 
 //todo filter explicit tweets, add db so no repeats.
 
