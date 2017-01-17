@@ -46,6 +46,7 @@ var reply = function(){
             if(tweet){
                 palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
             }
+
         }else{
             console.log("Error: " + err)
         }
@@ -82,7 +83,21 @@ function palindrometer(x,y,z){
             console.log(data)
         })
         */
-        Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+' Nice palindrome! It is ' + element.length + ' characters long.' }, function (err, data, response) {
+        var number = function(){return Math.floor(Math.random()*10)}
+        var banter = [
+            'Nice palindrome! It is',
+            'Cool - you made a palindrome that is',
+            'Good work, your palindrome is',
+            'Sweet palindrome ya got there. It is',
+            'Boo, noob! Just kidding, you made a great palindrome. It is',
+            'Ya got yerself a palindrome, there pardner. By my reckoning, it is',
+            'Fantastic palindrome - it is',
+            'Ooh nice one. That palindrome is',
+            'Pretty cool palindrome, looks to be',
+            'Not too shabby. Your palindrome is'
+
+        ]
+        Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ element.length + ' characters long.' }, function (err, data, response) {
             console.log(data)
         })
     }
