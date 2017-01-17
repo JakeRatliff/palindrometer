@@ -48,7 +48,7 @@ var reply = function(){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').find({"tweetId":tweet.id_str},function(err,result){
                         if(err) throw err;
-                        if(result){
+                        if(result && result.tweetId){
                             //console.log("keeping going...");
                             console.log("result.tweetId = " + result.tweetId);
                             console.log("tweet.id_str = " + tweet.id_str);
