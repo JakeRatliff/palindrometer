@@ -48,7 +48,7 @@ var reply = function(){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').find({tweetId:tweet.id_str},function(err,result){
                         if(err) throw err;
-                        if(result!=undefined){
+                        if(result.tweetId){
                             console.log("result found: " +result.tweetId+ "\nshould match: " + tweet.id_str);
                         }else{
                             console.log("no result found, this tweet is new to me");
