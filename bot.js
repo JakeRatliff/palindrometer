@@ -46,7 +46,7 @@ var reply = function(){
             //console.log(tweet);
             if(tweet){
                 MongoClient.connect(URI, function(err,db){
-                    db.collection('usedTweets').find({tweetId:tweet.id_str},function(err,result){
+                    db.collection('usedTweets').find({"tweetId":tweet.id_str},function(err,result){
                         if(err) throw err;
                         if(result.tweetId && result.tweetId == tweet.id_str){
                             console.log("keeping going...");
