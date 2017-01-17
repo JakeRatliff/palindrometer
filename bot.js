@@ -41,10 +41,11 @@ var retweet = function(){
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
             var tweet = data.statuses[0];
-            console.log("@username = " + tweet.user.screen_name);
+            //console.log("@username = " + tweet.user.screen_name);
             console.log("tweet text = " + tweet.text);
-            console.log(tweet);
-            //palindrometer(tweet.text,tweet.id_str)
+            //console.log(tweet);
+            if(tweet.id_str)
+            palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name)
         }else{
             console.log("Error: " + err)
         }
@@ -58,8 +59,14 @@ setInterval(retweet,5000);
 
 //todo filter explicit tweets, add db so no repeats.
 
-function palindrometer(x,y){
+function palindrometer(x,y,z){
     var tweetId = y;
+    var userName = z;
+    var alreadyUsedTweets = [];
+    if(alreadyUsedTweets.indexOf(y) >= 0){
+        console.log("repeat tweet");
+        return false
+    }
     /////////////////////////////////////////////////////////////////////////
     function fS(element){ //fS, or 'find symmetry'
         var minLength = 9; //minimum character length of palindrome,
@@ -85,9 +92,16 @@ function palindrometer(x,y){
             }
         }
         console.log("Found a palindrome! It is: " + element + ". It is " + element.length + " characters long. Nice!");
+        /*
         Twitter.post('statuses/retweet/:id', { id: tweetId }, function (err, data, response) {
             console.log(data)
         })
+        */
+        Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+' Nice palindrome! It is ' + element.length + ' characters long.' }, function (err, data, response) {
+            console.log(data)
+        })
+        alreadyUsedTweets.push(tweetId);
+        console.log("already used tweet ids: " + alreadyUsedTweets);
     }
     //////////////////////////////////////////////////////////////////////////
     function filterCommon(x){
