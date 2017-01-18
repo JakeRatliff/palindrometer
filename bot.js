@@ -44,8 +44,9 @@ var reply = function(){
             //console.log("@username = " + tweet.user.screen_name);
             //console.log(tweet);
             if(tweet){
+                var id = tweet.id_str;
                 MongoClient.connect(URI, function(err,db){
-                    db.collection('usedTweets').find({"tweetId":tweet.id_str},function(err,result){
+                    db.collection('usedTweets').find({"tweetId":id},function(err,result){
                         if(err) throw err;
                         if(1 == 1){
                             //console.log("keeping going...");
