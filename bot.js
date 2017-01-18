@@ -40,26 +40,31 @@ var reply = function(){
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
-            var tweet = data.statuses[0];
             console.log("data.statuses.length = " + data.statuses.length)
-            //console.log("@username = " + tweet.user.screen_name);
-            //console.log(tweet);
-            if(tweet){
-                MongoClient.connect(URI, function(err,db){
-                    db.collection('usedTweets').findOne({"tweetId":tweet.id_str},function(err,result){
-                        if(err) throw err;
-                        if(result){
-                            console.log("already found that tweet, keeping going...");
-                        }else{
-                            console.log("no result found, this tweet is new to me: "  + tweet.text + "\n      tweet id = " + tweet.id_str);
-                            palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
-                            console.log("        ok, i've done something with it. now, i'm adding it to the archive...")
-                            var tweetId = tweet.id_str;
-                            db.collection('usedTweets').insertOne({"tweetId":tweetId})
-                        }
-                    });
-                })
+            for(i=0;i<data.statuses.length;i++){
+
+
+                var tweet = data.statuses[i];
+                if(tweet){
+                    MongoClient.connect(URI, function(err,db){
+                        db.collection('usedTweets').findOne({"tweetId":tweet.id_str},function(err,result){
+                            if(err) throw err;
+                            if(result){
+                                console.log("already found that tweet, keeping going...");
+                            }else{
+                                console.log("no result found, this tweet is new to me: "  + tweet.text + "\n      tweet id = " + tweet.id_str);
+                                palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
+                                console.log("        ok, i've done something with it. now, i'm adding it to the archive...")
+                                var tweetId = tweet.id_str;
+                                db.collection('usedTweets').insertOne({"tweetId":tweetId})
+                            }
+                        });
+                    })
+                }
+
+
             }
+
         }else{
             console.log("Error: " + err)
         }
