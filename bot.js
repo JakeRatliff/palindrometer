@@ -3,7 +3,6 @@ var config = require('./config.js');
 var Twitter = new twit(config);
 var MongoClient = require('mongodb').MongoClient;
 var URI = process.env.MONGODB_URI;
-console.log(URI);
 
 /*
 var stream = Twitter.stream('statuses/filter',{ track: 'palindrome','palindrometer'});
@@ -48,14 +47,16 @@ var reply = function(){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').find({"tweetId":tweet.id_str},function(err,result){
                         if(err) throw err;
-                        if(result && result.tweetId){
+                        if(result.tweetId){
                             //console.log("keeping going...");
                             console.log("result.tweetId = " + result.tweetId);
                             console.log("tweet.id_str = " + tweet.id_str);
-                            console.log(result.tweetId == tweet.id_str);
+                            console.log("type of result.tweetId = " + typeof result.tweetId);
+                            console.log("type of tweet.id_str = " + typeof tweet.id_str);
+                            console.log("do they equal?     " + result.tweetId == tweet.id_str);
                         }else{
                             console.log("no result found, this tweet is new to me");
-                            palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
+                            //palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
                         }
                     });
                 })
@@ -86,6 +87,7 @@ function palindrometer(x,y,z){
         for(i=0;i<=x.length/2;i++){
             z--;
             if(x[i] == x[z]){
+                console.log("match")
             }else{
                 return "No symmetry here."
             }
