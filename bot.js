@@ -121,7 +121,7 @@ function palindrometer(x,y,z){
 
     //////////////////////////////////////////////////////////////////////////
     var combinations = [];
-    var noPunc = x.replace(/[.,\/#!?$%'\^&\*;:{}=\-_`~()]/g,"");
+    var noPunc = x.replace(/[.,\/\"#!?$%\'\^&\*;:{}=\-_`~()]/g,"");
     var singleSpaces = noPunc.replace(/\s{2,}/g," "); //multiple spaces to one space
     var scrubbed = singleSpaces.toLowerCase();
     var words = scrubbed.split(" ");
