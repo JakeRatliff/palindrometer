@@ -42,10 +42,8 @@ var reply = function(){
         if(!err){
             console.log("data.statuses.length = " + data.statuses.length)
             for(i=0;i<data.statuses.length;i++){
-
-
                 var tweet = data.statuses[i];
-                if(tweet){
+                //if(tweet){
                     MongoClient.connect(URI, function(err,db){
                         db.collection('usedTweets').findOne({"tweetId":tweet.id_str},function(err,result){
                             if(err) throw err;
@@ -60,9 +58,7 @@ var reply = function(){
                             }
                         });
                     })
-                }
-
-
+                //}
             }
 
         }else{
