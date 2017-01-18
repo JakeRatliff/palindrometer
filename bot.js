@@ -41,7 +41,7 @@ var reply = function(){
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
             var tweet = data.statuses[0];
-            console.log("data.statuses.length = " + data.statues.length)
+            console.log("data.statuses.length = " + data.statuses.length)
             //console.log("@username = " + tweet.user.screen_name);
             //console.log(tweet);
             if(tweet){
