@@ -55,13 +55,11 @@ var reply = function(){
                             console.log("type of tweet.id_str = " + typeof tweet.id_str);
                             console.log("do they equal?     " + result.tweetId == tweet.id_str);
                         }else{
-                            console.log("no result found, this tweet is new to me: "  + tweet.text);
-                            console.log("now, i'm adding it to the archive...")
-                            var tweetId = tweet.id_str;
-                            MongoClient.connect(URI, function(err,db){
-                                db.collection('usedTweets').insertOne({"tweetId":tweetId})
-                            });
+                            console.log("no result found, this tweet is new to me: "  + tweet.text + "\n      tweet id = " + tweet.id_str);
                             //palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
+                            console.log("ok, i've done something with it. now, i'm adding it to the archive...")
+                            var tweetId = tweet.id_str;
+                            db.collection('usedTweets').insertOne({"tweetId":tweetId})
                         }
                     });
                 })
