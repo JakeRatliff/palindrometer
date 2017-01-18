@@ -47,7 +47,7 @@ var reply = function(){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').find({"tweetId":tweet.id_str},function(err,result){
                         if(err) throw err;
-                        if(result.tweetId){
+                        if(1 == 1){
                             //console.log("keeping going...");
                             console.log("result.tweetId = " + result.tweetId);
                             console.log("tweet.id_str = " + tweet.id_str);
@@ -57,7 +57,7 @@ var reply = function(){
                         }else{
                             console.log("no result found, this tweet is new to me: "  + tweet.text + "\n      tweet id = " + tweet.id_str);
                             //palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
-                            console.log("ok, i've done something with it. now, i'm adding it to the archive...")
+                            console.log("        ok, i've done something with it. now, i'm adding it to the archive...")
                             var tweetId = tweet.id_str;
                             db.collection('usedTweets').insertOne({"tweetId":tweetId})
                         }
