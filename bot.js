@@ -56,6 +56,9 @@ var reply = function(){
                             console.log("do they equal?     " + result.tweetId == tweet.id_str);
                         }else{
                             console.log("no result found, this tweet is new to me");
+                            MongoClient.connect(URI, function(err,db){
+                                db.collection('usedTweets').insertOne({"tweetId":tweetId})
+                            });
                             //palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
                         }
                     });
