@@ -40,14 +40,14 @@ var reply = function(){
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
-            console.log("data.statuses.length = " + data.statuses.length)
+            //console.log("data.statuses.length = " + data.statuses.length)
             var tweet = data.statuses[0];
             if(tweet){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').findOne({"tweetId":tweet.id_str},function(err,result){
                         if(err) throw err;
                         if(result){
-                            console.log("already found that tweet, keeping going...");
+                            //console.log("already found that tweet, keeping going...");
                         }else{
                             console.log("no result found, this tweet is new to me: "  + tweet.text + "\n      tweet id = " + tweet.id_str);
                             palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
@@ -67,7 +67,13 @@ var reply = function(){
 }
 
 //retweet();
+var twelveHours = 1000*60*60*12;
 setInterval(reply,10000);
+setInterval(upCheck, twelveHours);
+
+var upCheck = function(){
+    console.log("...I'm awake...")
+};
 
 //todo filter explicit tweets
 
