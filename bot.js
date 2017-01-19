@@ -130,8 +130,8 @@ function palindrometer(x,y,z){
     //////////////////////////////////////////////////////////////////////////
     var combinations = [];
     var noPunc = x.replace(/[.,\/\"#!?$%\'\^&\*;:{}=\-_`~()]/g,"");
-    var noPalindrometer = noPunc.replace(/@palindrometer/g, '');
-    var noLineBreaks = noPalindrometer.replace(/\n/g,' ');
+    //var noPalindrometer = noPunc.replace(/@palindrometer/g, '');
+    var noLineBreaks = noPunc.replace(/\n/g,' ');
     var singleSpaces = noLineBreaks.replace(/\s{2,}/g," "); //multiple spaces to one space
     var scrubbed = singleSpaces.toLowerCase();
     var words = scrubbed.split(" ");
