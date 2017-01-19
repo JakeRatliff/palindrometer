@@ -50,6 +50,9 @@ var reply = function(){
                             //console.log("already found that tweet, keeping going...");
                         }else{
                             console.log("no result found, this tweet is new to me: "  + tweet.text + "\n      tweet id = " + tweet.id_str);
+                            for(i=0;i<tweet.text.length;i++){
+                                console.log(tweet.text[i]);
+                            }
                             palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
                             console.log("        ok, i've done something with it. now, i'm adding it to the archive...")
                             var tweetId = tweet.id_str;
