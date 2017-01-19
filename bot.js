@@ -68,12 +68,11 @@ var reply = function(){
 
 //retweet();
 var twelveHours = 1000*60*60*12;
-setInterval(reply,10000);
-setInterval(upCheck, twelveHours);
-
 var upCheck = function(){
     console.log("...I'm awake...")
 };
+setInterval(reply,10000);
+setInterval(upCheck, twelveHours);
 
 //todo filter explicit tweets
 
