@@ -80,10 +80,10 @@ function palindrometer(x,y,z){
     var tweetId = y;
     var userName = z;
     /////////////////////////////////////////////////////////////////////////
-    function fS(element){ //or 'find symmetry'
+    function fS(x){ //or 'find symmetry'
         var minLength = 3; //minimum character length of palindrome,
         // excluding spaces and punctuation, which will have been scrubbed already.
-        var x = element;
+        //var x = element;
         if(x.length<minLength){
             return false
         }
@@ -93,39 +93,11 @@ function palindrometer(x,y,z){
             if(x[i] == x[z]){
                 console.log("match")
             }else{
-                return "No symmetry here."
+                return false
             }
         }
         console.log("Found a palindrome! It is: " + element + ". It is " + element.length + " characters long. Nice!");
-        /*
-        Twitter.post('statuses/retweet/:id', { id: tweetId }, function (err, data, response) {
-            console.log(data)
-        })
-        */
-        var number = function(){return Math.floor(Math.random()*14)};
-        var banter = [
-            'Nice palindrome! It is',
-            'Cool - you made a palindrome that is',
-            'Good work, your palindrome is',
-            'Sweet palindrome ya got there. It is',
-            'Boo, noob! Just kidding, you made a great palindrome. It is',
-            'Looks like ya got yerself a palindrome, there, pardner. By my reckoning, it is',
-            'Fantastic palindrome - it is',
-            'Ooh nice one. That palindrome is',
-            'Pretty cool palindrome, looks to be',
-            'Not too shabby. Your palindrome is',
-            'Beep. Boop. Palindrome detected. It is',
-            'I love the smell of palindromes in the morning. Especially ones that are',
-            'That\'s a spicy palindrome! It is',
-            'woah... thats, like, a dope \'drome you made bruh. its, like,'
-        ];
-        Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ element.length + ' characters long.' }, function (err, data, response) {
-            console.log(data)
-        });
-        console.log("        ok, i've done something with it. now, i'm adding it to the archive...");
-        MongoClient.connect(URI, function(err,db){
-            db.collection('usedTweets').insertOne({"tweetId":tweetId})
-        });
+        return true
     }
     //////////////////////////////////////////////////////////////////////////
 
@@ -148,8 +120,36 @@ function palindrometer(x,y,z){
     var sortedCombos = combinations.sort(function(a, b){
         return b.length - a.length;
     });
-    console.log(sortedCombos);
-    sortedCombos.forEach(fS);
+    //console.log(sortedCombos);
+    //sortedCombos.forEach(fS);
+    for(i=0;i<sortedCombos.length;i++){
+        if(fS(sortedCombos[i]) == true){
+            var number = function(){return Math.floor(Math.random()*14)};
+            var banter = [
+                'Nice palindrome! It is',
+                'Cool - you made a palindrome that is',
+                'Good work, your palindrome is',
+                'Sweet palindrome ya got there. It is',
+                'Boo, noob! Just kidding, you made a great palindrome. It is',
+                'Looks like ya got yerself a palindrome, there, pardner. By my reckoning, it is',
+                'Fantastic palindrome - it is',
+                'Ooh nice one. That palindrome is',
+                'Pretty cool palindrome, looks to be',
+                'Not too shabby. Your palindrome is',
+                'Beep. Boop. Palindrome detected. It is',
+                'I love the smell of palindromes in the morning. Especially ones that are',
+                'That\'s a spicy palindrome! It is',
+                'woah... thats, like, a dope \'drome you made bruh. its, like,'
+            ];
+            Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ sortedCombos[i].length + ' characters long.' }, function (err, data, response) {
+                console.log(data.text)
+            });
+            console.log("        ok, i've done something with it. now, i'm adding it to the archive...");
+            MongoClient.connect(URI, function(err,db){
+                db.collection('usedTweets').insertOne({"tweetId":tweetId})
+            });
+        }
+    }
 }
 ////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
 
