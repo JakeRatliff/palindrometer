@@ -111,7 +111,9 @@ function palindrometer(x,y,z){
             console.log(data)
         });
         console.log("        ok, i've done something with it. now, i'm adding it to the archive...");
-        db.collection('usedTweets').insertOne({"tweetId":tweetId})
+        MongoClient.connect(URI, function(err,db){
+            db.collection('usedTweets').insertOne({"tweetId":tweetId});
+        });
     }
     //////////////////////////////////////////////////////////////////////////
 
