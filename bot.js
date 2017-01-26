@@ -119,7 +119,6 @@ function palindrometer(x,y,z){
             'That\'s a spicy palindrome! It is',
             'woah... thats, like, a dope \'drome you made bruh. its, like,'
         ];
-        ]; 
         Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ element.length + ' characters long.' }, function (err, data, response) {
             console.log(data)
         });
