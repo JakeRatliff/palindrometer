@@ -137,11 +137,8 @@ function palindrometer(x,y,z){
         return b.length - a.length;
     });
     //console.log(sortedCombos);
-    //sortedCombos.forEach(fS);
-    for(i=0;i<sortedCombos.length;i++){
-        console.log(sortedCombos[i].length);
-        fS(sortedCombos[i]);
-    }
+    sortedCombos.forEach(fS);
+
 }
 ////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
 
