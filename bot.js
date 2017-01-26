@@ -123,7 +123,8 @@ function palindrometer(x,y,z){
     //console.log(sortedCombos);
     //sortedCombos.forEach(fS);
     for(i=0;i<sortedCombos.length;i++){
-        if(fS(sortedCombos[i]) == true){
+        fS(sortedCombos[i]);
+        /*
             var number = function(){return Math.floor(Math.random()*14)};
             var banter = [
                 'Nice palindrome! It is',
@@ -148,7 +149,8 @@ function palindrometer(x,y,z){
             MongoClient.connect(URI, function(err,db){
                 db.collection('usedTweets').insertOne({"tweetId":tweetId})
             });
-        }
+            */
+
     }
 }
 ////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
