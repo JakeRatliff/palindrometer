@@ -44,7 +44,7 @@ var reply = function(){
             var tweets = data.statuses;
             var tweet = tweets[0];
             console.log(tweets.length);
-            for(i=0;i<tweets;i++){
+            for(i=0;i<tweets.length;i++){
                 console.log(tweets[i].user.screen_name);
             }
             if(tweets.length>0){
