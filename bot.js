@@ -44,6 +44,9 @@ var reply = function(){
             var tweets = data.statuses;
             var tweet = tweets[0];
             console.log(tweets.length);
+            for(i=0;i<tweets;i++){
+                console.log(tweets[i].user.screen_name);
+            }
             if(tweets.length>0){
                 MongoClient.connect(URI, function(err,db){
                     db.collection('usedTweets').findOne({"tweetId":tweet.id_str},function(err,result){
