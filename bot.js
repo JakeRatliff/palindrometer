@@ -19,20 +19,7 @@ stream.on('tweet', function (tweet) {
 
  */
 
-function streaming(){
-    var streamTweets = [];
-    Twitter.stream('statuses/sample', function (stream) {
-        stream.on('tweet', function (tweet) {
-            console.log(tweet.text);
-            streamTweets.push(tweet);
-            if(streamTweets.length = 10){
-                console.log("streamTweets equals ten")
-            }
-        });
-    });
-}
 
-streaming();
 
 
 var reply = function(){
