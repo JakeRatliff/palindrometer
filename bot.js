@@ -16,19 +16,23 @@ stream.on('tweet', function (tweet) {
     }
 });
 //////////////// or this:
-Twitter.stream('statuses/filter', { track: 'hey'}, function (stream) {
-    stream.on('tweet', function (tweet) {
-        console.log(tweet);
-        var filtered = filterJunk(tweet.text);
-        if(filtered){
-            console.log("filtered tweet")
-        }else{
-            palindrometer(tweet.text,tweet.id_str);
-        }
-    });
-});
-*/
 
+ */
+
+function streaming(){
+    var streamTweets = [];
+    Twitter.stream('statuses/sample', function (stream) {
+        stream.on('tweet', function (tweet) {
+            console.log(tweet.text);
+            streamTweets.push(tweet);
+            if(streamTweets.length = 10){
+                console.log("streamTweets equals ten")
+            }
+        });
+    });
+}
+
+streaming();
 
 
 var reply = function(){
@@ -36,7 +40,7 @@ var reply = function(){
         q: '@palindrometer%20-from%3Apalindrometer', //palindrome%20OR%20palindrometer
         result_type: 'recent',
         lang: 'en'
-    }
+    };
 
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
@@ -105,7 +109,7 @@ function palindrometer(x,y,z){
             console.log(data)
         })
         */
-        var number = function(){return Math.floor(Math.random()*10)}
+        var number = function(){return Math.floor(Math.random()*10)};
         var banter = [
             'Nice palindrome! It is',
             'Cool - you made a palindrome that is',
