@@ -89,11 +89,6 @@ function palindrometer(x,y,z){
             }
         }
         console.log("Found a palindrome! It is: " + element + ". It is " + element.length + " characters long. Nice!");
-        /*
-        Twitter.post('statuses/retweet/:id', { id: tweetId }, function (err, data, response) {
-            console.log(data)
-        })
-        */
         var number = function(){return Math.floor(Math.random()*14)};
         var banter = [
             'Nice palindrome! It is',
@@ -113,7 +108,7 @@ function palindrometer(x,y,z){
             'woah... thats, like, a dope \'drome you made bruh. its, like,'
         ];
         Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ element.length + ' characters long.' }, function (err, data, response) {
-            console.log(data)
+            console.log(data.text)
         });
         console.log("        ok, i've done something with it. now, i'm adding it to the archive...");
         MongoClient.connect(URI, function(err,db){
@@ -142,7 +137,11 @@ function palindrometer(x,y,z){
         return b.length - a.length;
     });
     //console.log(sortedCombos);
-    sortedCombos.forEach(fS);
+    //sortedCombos.forEach(fS);
+    for(i=0;i<sortedCombos.length;i++){
+        console.log(sortedCombos[i].length);
+        fS(sortedCombos[i]);
+    }
 }
 ////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
 
