@@ -56,9 +56,6 @@ var reply = function(){
                         }else{
                             console.log("no result found, this tweet is new to me: "  + tweet.text + "\n      tweet id = " + tweet.id_str);
                             palindrometer(tweet.text,tweet.id_str,tweet.user.screen_name);
-                            console.log("        ok, i've done something with it. now, i'm adding it to the archive...");
-                            var tweetId = tweet.id_str;
-                            db.collection('usedTweets').insertOne({"tweetId":tweetId})
                         }
                     });
                 })
@@ -125,6 +122,7 @@ function palindrometer(x,y,z){
         Twitter.post('statuses/update', { in_reply_to_status_id:tweetId, status:'@'+userName+ ' ' + banter[number()] + ' '+ element.length + ' characters long.' }, function (err, data, response) {
             console.log(data)
         });
+        console.log("        ok, i've done something with it. now, i'm adding it to the archive...");
         MongoClient.connect(URI, function(err,db){
             db.collection('usedTweets').insertOne({"tweetId":tweetId})
         });
