@@ -66,8 +66,60 @@ var upCheck = function(){
 setInterval(reply,10000);
 setInterval(upCheck, twelveHours);
 
+/*
+function palindrometer(x){
+
+    /////////////////////////////////////////////////////////////////////////
+    function fS(element){ //or 'find symmetry'
+        var minLength = 7; //minimum character length of palindrome,
+        // excluding spaces and punctuation, which will have been scrubbed already.
+        var x = element;
+        if(x.length<minLength){
+            return false
+        }
+        var z = x.length;
+        for(i=0;i<=x.length/2;i++){
+            z--;
+            if(x[i] == x[z]){
+            }else{
+                return false
+            }
+        }
+        console.log("Found a palindrome! It is: " + element + ". It is " + element.length + " characters long. Nice!");
+
+    }
+    //////////////////////////////////////////////////////////////////////////
+
+    //////////////////////////////////////////////////////////////////////////
+    var combinations = [];
+    var noPunc = x.replace(/[.,\/#!?$%'\^&\*;:{}=\-_`~()]/g,"");
+    var singleSpaces = noPunc.replace(/\s{2,}/g," "); //multiple spaces to one space
+    var scrubbed = singleSpaces.toLowerCase();
+    var words = scrubbed.split(" ");
+    for(i=0;i<words.length;i++){
+        for(j=i;j<=words.length;j++){
+            var segment = words.slice(i,j);
+
+            //console.log(segment);
+            segment = segment.join("");
+            combinations.push(segment);
+
+        }
+    }
+    var sortedCombos = combinations.sort(function(a, b){
+        return b.length - a.length;
+    });
+    //console.log(sortedCombos);
+    sortedCombos.forEach(fS);
+}
+    */
 //todo filter explicit tweets
 
+////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
+
+
+
+////////////////\\\\\\\\\\\\\\\\//////////////
 function palindrometer(x,y,z){
     var tweetId = y;
     var userName = z;
@@ -140,55 +192,3 @@ function palindrometer(x,y,z){
     sortedCombos.forEach(fS);
 
 }
-////////////////////\\\\\\\\\\\\\\\////////////////\\\\\\\\\\\\\\///////////////\\\\\\\\\\\\\\
-
-
-
-////////////////\\\\\\\\\\\\\\\\//////////////
-/*
-function palindrometer(x){
-
-    /////////////////////////////////////////////////////////////////////////
-    function fS(element){ //or 'find symmetry'
-        var minLength = 7; //minimum character length of palindrome,
-        // excluding spaces and punctuation, which will have been scrubbed already.
-        var x = element;
-        if(x.length<minLength){
-            return false
-        }
-        var z = x.length;
-        for(i=0;i<=x.length/2;i++){
-            z--;
-            if(x[i] == x[z]){
-            }else{
-                return false
-            }
-        }
-        console.log("Found a palindrome! It is: " + element + ". It is " + element.length + " characters long. Nice!");
-
-    }
-    //////////////////////////////////////////////////////////////////////////
-
-    //////////////////////////////////////////////////////////////////////////
-    var combinations = [];
-    var noPunc = x.replace(/[.,\/#!?$%'\^&\*;:{}=\-_`~()]/g,"");
-    var singleSpaces = noPunc.replace(/\s{2,}/g," "); //multiple spaces to one space
-    var scrubbed = singleSpaces.toLowerCase();
-    var words = scrubbed.split(" ");
-    for(i=0;i<words.length;i++){
-        for(j=i;j<=words.length;j++){
-            var segment = words.slice(i,j);
-
-            //console.log(segment);
-            segment = segment.join("");
-            combinations.push(segment);
-
-        }
-    }
-    var sortedCombos = combinations.sort(function(a, b){
-        return b.length - a.length;
-    });
-    //console.log(sortedCombos);
-    sortedCombos.forEach(fS);
-}
-    */
