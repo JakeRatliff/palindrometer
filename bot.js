@@ -32,11 +32,6 @@ var reply = function(){
     Twitter.get('search/tweets', params, function(err, data){
         if(!err){
             //console.log("data.statuses.length = " + data.statuses.length)
-			if(data){
-				console.log("there is data");
-			}else{
-				console.log("no data");
-			};
             var tweet = data.statuses[0];
             if(tweet){
                 MongoClient.connect(URI, function(err,db){
